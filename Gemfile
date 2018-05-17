@@ -32,6 +32,8 @@ gem 'spring',        group: :development
 
 gem 'puma'
 
+gem 'twitter'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
