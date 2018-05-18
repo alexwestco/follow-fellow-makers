@@ -34,6 +34,7 @@ gem 'puma'
 
 gem 'twitter'
 
+gem 'omniauth-twitter'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
