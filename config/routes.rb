@@ -8,10 +8,6 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-
-  get 'follow', to: 'welcome#follow', controller: 'welcome'
-  get 'setup', to: 'welcome#setup', controller: 'welcome'
-
   get '/auth/:provider/callback', :to => 'sessions#create'
 
   resources :lists

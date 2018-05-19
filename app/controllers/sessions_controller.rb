@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 	  	session[:token] = auth_hash.credentials.token
 	  	session[:secret] = auth_hash.credentials.secret
 	  	session[:twitter_username] = auth_hash[:info][:name]
-	  	redirect_to "/success"
+	  	redirect_to "/lists"
 	end
 
 end
