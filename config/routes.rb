@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get 'auth/twitter/callback', to: 'welcome#callback', controller: 'welcome'
+
+  get 'follow', to: 'welcome#follow', controller: 'welcome'
+
+  resources :lists
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
