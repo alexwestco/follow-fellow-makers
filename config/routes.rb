@@ -8,9 +8,11 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  get 'auth/twitter/callback', to: 'welcome#callback', controller: 'welcome'
 
   get 'follow', to: 'welcome#follow', controller: 'welcome'
+  get 'setup', to: 'welcome#setup', controller: 'welcome'
+
+  get '/auth/:provider/callback', :to => 'sessions#create'
 
   resources :lists
   # Example of regular route:

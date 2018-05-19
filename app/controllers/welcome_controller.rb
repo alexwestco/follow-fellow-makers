@@ -1,5 +1,3 @@
-require "net/http"
-
 class WelcomeController < ApplicationController
 
   # GET /welcome
@@ -7,20 +5,27 @@ class WelcomeController < ApplicationController
 
   end
 
-  def callback
-  	puts 'In callback babeyeyyyyy'
-  	puts params[:oauth_token]
-  	puts params[:oauth_verifier]
-  	client = Twitter::REST::Client.new do |config|
+  def setup
+  	puts 'in setup'
+  	puts session[:token]
+  	puts session[:secret]
+  	puts session[:twitter_username]
+
+	client = Twitter::REST::Client.new do |config|
 	  config.consumer_key        = ENV.fetch('FOLLOW_FELLOW_FOUNDERS_CONSUMER_KEY')
 	  config.consumer_secret     = ENV.fetch('FOLLOW_FELLOW_FOUNDERS_CONSUMER_SECRET')
-	  config.access_token        = params[:oauth_token]
+	  config.access_token        = session[:token]
+  	  config.access_token_secret = session[:secret]
 	end
 
-	tweets = client.user_timeline("alexsideris_")
-	puts tweets
 
-	redirect_to "/lists"
+	client.follow('GilbertMelendez')
+	redirect_to 'success'
+
+  end
+
+  def success
+
   end
 
 end
