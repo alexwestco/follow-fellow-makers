@@ -19,8 +19,9 @@
         <% @users.each do |user| %>
             <div class="col col-lg-12" style="background-image: linear-gradient(to top, #a8edea 10%, #fed6e3 120%); text-align: center; margin-left: auto; margin-right: auto; display: block; align-self: center; margin-bottom: 20px;"><br>
                 <a target="_blank" style="color:black; text-decoration: none;" href="https://www.twitter.com/<%= user.twitter_username %>" ><img id="card-img-top" src="<%= user.image_url %>" style="border-radius: 50%; height:75px; margin:10px;" /><p>@<b><%= user.twitter_username %></p></b><span style="padding-bottom: 30px;"><%= user.bio %></span></a>
-                <br><br><br>
-                
+                <br><br>
+                <p style="font-size: 11px; color: grey;">Followers: <%= user.follower_count %> - Tweets: <%= user.tweet_count %></p>
+                               
             </div>
 		<% end %>
         <br><br><br>
