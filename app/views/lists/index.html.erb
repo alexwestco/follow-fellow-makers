@@ -6,26 +6,41 @@
         background-size: cover;
         height: 100vh;
         text-align: center;
-        font-family: 'Roboto'">
+        font-family: 'Roboto';
+        margin-bottom: 300px;">
         <h2 style="color:#191919; margin-top: 100px;">You have successfully signed up for Maker Feed! </h2>
         <p style="color:grey; font-size: 19px;">Choose a list and select the number of makers you want to follow 🔍</p>
-        <a href="/lists/new" class="btn btn-success">Add a List</a>
-
+        <a href="/lists/new" class="btn btn-success" style="margin:50px; padding:10px;">Add a List</a>
+        <% $i = 1 %>
         <% @lists.each do |list| %>
           <div class="row">
             <div class="col-lg-2">
 
 
             </div>
-            <div class="col-lg-8">
-              <%= list.name %>
-              <%= list.owner %>
+            <div class="col-lg-8" style="background-image: linear-gradient(to top, #a8edea 10%, #fed6e3 120%); text-align: center; margin-left: auto; margin-right: auto; display: block; align-self: center; margin-top: 20px;">
+              
+              <a href="https://www.twitter.com/<%= list.owner %>/lists/<%= list.name %>" target="_black" style="text-decoration: none; color:#191919;">
+                <p style="font-size: 30px; padding-top: 25px;"><%= list.name %> <span style="color:grey; font-size: 12px;"> by <%= list.owner %></span></p>
+              </a>
+              <div style="margin:30px;">
+                <b>Find <input id="number<%= $i %>" type="number" style="width:50px;background: transparent; border-width: 1px;">
+
+                  <select id="select<%= $i %>" style="background: transparent;">
+                    <option value="popular">most popular</option>
+                    <option value="active">most active</option>
+                    <option value="random">random</option>
+                  </select>
+                  makers 
+                  <a onclick="goBtnPressed(<%= $i %>,'<%= list.name %>', '<%= list.owner %>')" href="" class="btn btn-info" style="margin-left: 10px;">Go</a></b>
+              </div>
             </div>
             <div class="col-lg-2">
 
             </div>
 
           </div>
+          <% $i = $i + 1 %>
         <% end %>
         
   

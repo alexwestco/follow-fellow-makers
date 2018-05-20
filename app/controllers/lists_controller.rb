@@ -46,10 +46,7 @@ class ListsController < ApplicationController
 	  	
   	end
 
-  	def follow
-		puts session[:token]
-		puts session[:secret]
-		puts session[:twitter_username]
+  	def get_users
 
 		client = Twitter::REST::Client.new do |config|
 		  config.consumer_key        = ENV.fetch('FOLLOW_FELLOW_FOUNDERS_CONSUMER_KEY')
@@ -58,33 +55,46 @@ class ListsController < ApplicationController
 	  	  config.access_token_secret = session[:secret]
 	  	end
 
-	  	puts params[:list_slug_name]
-	  	puts params[:list_owner_name]
-	  	puts params[:number]
-	  	puts params[:type]
-
-		listmembers = client.list_members(params[:list_owner_name], params[:list_slug_name])
-		puts listmembers
+		listmembers = client.list_members(params[:list_owner], params[:list_name])
 		
 		# Maybe sort users in some way according to filter options, like followers and startuses
 
 		$i = 0
+		@users = []
 		listmembers.each do |lmname|
+			@users.push(lmname.screen_name)
 			p lmname.screen_name
 			p lmname.followers_count
 			p lmname.statuses_count
-			#puts client.follow(lmname.screen_name)
-			puts i
+
 			$i = $i+1
-			if $i == params[:number]
-				puts 'break'
+			puts $i
+
+			if $i == Integer(params[:number])
 				break
 			end
-		end
-		puts i
 
-		redirect_to '/success'
-		
+		end
+
+		session[:users] = @users
+	
+	end
+
+	def follow
+		client = Twitter::REST::Client.new do |config|
+		  config.consumer_key        = ENV.fetch('FOLLOW_FELLOW_FOUNDERS_CONSUMER_KEY')
+		  config.consumer_secret     = ENV.fetch('FOLLOW_FELLOW_FOUNDERS_CONSUMER_SECRET')
+		  config.access_token        = session[:token]
+	  	  config.access_token_secret = session[:secret]
+	  	end
+
+	  	session[:users].each do |lmname|
+	  		client.follow(lmname)
+	  	end
+
+	  	session[:users] = []
+
+	  	redirect_to "/success"
 	end
 
 	def success

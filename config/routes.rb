@@ -10,9 +10,11 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', :to => 'sessions#create'
 
+  get 'lists/get_users'
+
   get 'lists/follow'
 
-  get 'success', :to => 'welcome#success'
+  get 'lists/success'
 
   resources :lists
   # Example of regular route:

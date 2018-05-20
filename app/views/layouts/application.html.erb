@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Maker Feed | Find and follow fellow makers in two clicks</title>
+  <title>Maker Feed | Find and follow fellow makers in just two clicks</title>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag  '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -32,7 +32,7 @@
     
             <ul class="nav navbar-nav navbar-right">
               <li class="">
-                <a style="color: grey;" href="/#open_source"> How Does It Work?</a>
+                <a style="color: grey;" href="/#how_does_it_work"> How Does It Work?</a>
               </li>
               <li class="">
                 <a style="color: grey;" href="/#open_source"> Open Source</a>
@@ -58,6 +58,19 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-119126879-1');
-    </script>
+</script>
+
+<script type="text/javascript">
+
+  function goBtnPressed(index, list_name, list_owner) {
+    number = document.getElementById("number"+index).value
+    type = document.getElementById("select"+index).value
+    if(document.getElementById("number"+index).value > 0){
+      console.log('hi')
+      window.location.replace("/lists/get_users?list_name="+list_name+"&list_owner="+list_owner+"&number="+number+"&type="+type)
+    }
+    return false
+  }
+</script>
 </body>
 </html>
