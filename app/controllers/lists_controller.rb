@@ -56,7 +56,6 @@ class ListsController < ApplicationController
 	  	end
 
 		listmembers = client.list_members(params[:list_owner], params[:list_name])
-		puts listmembers.inspect
 		# Maybe sort users in some way according to filter options, like followers and startuses
 
 		$i = 0
@@ -101,7 +100,6 @@ class ListsController < ApplicationController
 	  	end
 
 	  	JSON.parse(params[:users]).each do |user|
-	  		#puts user['twitter_username']
 	  		client.follow(user['twitter_username'])
 	  	end
 
