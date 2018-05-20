@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get 'lists/get_users'
 
-  get 'lists/follow'
+  post 'lists/follow'
 
   get 'lists/success'
 

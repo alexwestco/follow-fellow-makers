@@ -10,13 +10,16 @@
         margin-bottom: 300px;">
         <h2 style="color:#191919; margin-top: 100px;">These are the makers you are about to follow </h2>
         <p style="color:grey; font-size: 19px;">You can either follow them or search again 🔍</p>
-        <a href="/lists/follow" class="btn btn-success" style="margin-top:20px; margin-bottom: 20px;">Follow them!</a>
-        <a href="/lists" class="btn btn-default" style="margin-top:20px; margin-bottom: 20px;">Search again</a><br>
+        
+        <%= link_to "Follow All!", lists_follow_url(users: @users.to_json), :method => :post %>
+        <a href="/lists" class="btn btn-default" style="margin-top:20px; margin-bottom: 20px; padding:10px;">Back to Search</a><br>
+        <p><%= @text %></p>
 
         <% @users.each do |user| %>
-			<a style="font-size: 22px; margin:5px;" target="_blank" href="https://www.twitter.com/<%= user %>">@<%= user %></a><br>
+			<a style="font-size: 22px; margin:5px;" target="_blank" href="https://www.twitter.com/<%= user.twitter_username %>">@<%= user.twitter_username %></a><br>
 		<% end %>
-
+        <br><br><br>
+        <p style="color:orange;">You might hit a Twitter Limit, due to restrictions of the Twitter API. Nothing to worry about though 👍</p>
 
     </div>
 

@@ -60,23 +60,31 @@ class ListsController < ApplicationController
 		# Maybe sort users in some way according to filter options, like followers and startuses
 
 		$i = 0
-		@users = []
+		@all_users = []
 		listmembers.each do |lmname|
-			@users.push(lmname.screen_name)
-			p lmname.screen_name
-			p lmname.followers_count
-			p lmname.statuses_count
 
-			$i = $i+1
-			puts $i
-
-			if $i == Integer(params[:number])
-				break
-			end
+			user = User.new
+			user.twitter_username = lmname.screen_name
+			user.follower_count = lmname.followers_count
+			user.tweet_count = lmname.statuses_count
+			@all_users.push(user)
 
 		end
 
-		session[:users] = @users
+		@text = ''
+
+		if params[:type] == 'popular'
+			@text = 'These are the '+params[:number]+' most popular makers on '+params[:list_name]
+			@all_users = @all_users.sort_by(&:follower_count).reverse
+		elsif params[:type] == 'active'
+			@text = 'These are the '+params[:number]+' most active makers on '+params[:list_name]
+			@all_users = @all_users.sort_by(&:tweet_count).reverse
+		else
+			@text = 'These are '+params[:number]+' random makers on '+params[:list_name]
+			@all_users = @all_users.shuffle
+		end
+
+		@users = @all_users.first(Integer(params[:number]))
 	
 	end
 
@@ -88,13 +96,12 @@ class ListsController < ApplicationController
 	  	  config.access_token_secret = session[:secret]
 	  	end
 
-	  	session[:users].each do |lmname|
-	  		client.follow(lmname)
+	  	JSON.parse(params[:users]).each do |user|
+	  		#puts user['twitter_username']
+	  		client.follow(user['twitter_username'])
 	  	end
 
-	  	session[:users] = []
-
-	  	redirect_to "/success"
+	  	redirect_to "/lists/success"
 	end
 
 	def success
