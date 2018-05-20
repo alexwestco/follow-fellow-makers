@@ -10,8 +10,9 @@
         margin-bottom: 300px;">
         <h2 style="color:#191919; margin-top: 100px;">These are the makers you are about to follow </h2>
         <p style="color:grey; font-size: 19px;">You can either follow them or search again 🔍</p>
-        
-        <%= link_to "Follow All!", lists_follow_url(users: @users.to_json), :method => :post %>
+        <div class="btn btn-success" style="color:white; padding: 10px;">
+            <%= link_to "Follow All!", lists_follow_url(users: @users.to_json), :method => :post %>
+        </div>
         <a href="/lists" class="btn btn-default" style="margin-top:20px; margin-bottom: 20px; padding:10px;">Back to Search</a><br>
         <p><%= @text %></p>
 
