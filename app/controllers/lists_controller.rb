@@ -56,7 +56,7 @@ class ListsController < ApplicationController
 	  	end
 
 		listmembers = client.list_members(params[:list_owner], params[:list_name])
-		
+		puts listmembers.inspect
 		# Maybe sort users in some way according to filter options, like followers and startuses
 
 		$i = 0
@@ -67,6 +67,10 @@ class ListsController < ApplicationController
 			user.twitter_username = lmname.screen_name
 			user.follower_count = lmname.followers_count
 			user.tweet_count = lmname.statuses_count
+
+			user.bio = lmname.description
+			user.image_url = lmname.profile_image_url
+			
 			@all_users.push(user)
 
 		end
